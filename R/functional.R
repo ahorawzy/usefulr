@@ -27,3 +27,18 @@ where <- function(f, x) {
 compact <- function(l) {
   Filter(Negate(is.null),l)
 }
+
+#' FO: fcosttime
+#'
+#' This FO can print the operating time of function before print the outcome.
+#'
+#' @examples
+#' fcosttime(delay_by(10,sum))(1:100)
+#'
+fcosttime <- function(f) {
+  function(...) {
+    costtime <- system.time(out <- f(...))
+    cat("Function operates for",costtime[3],"seconds.","\n","\n")
+    out
+  }
+}

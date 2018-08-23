@@ -14,3 +14,42 @@ delay_by <- function(delay, f){
     f(...)
   }
 }
+
+#' FO: chatty
+#'
+#' This FO can print the first parameter when processing.
+#'
+#' @examples
+#' f <- function(x) x^2
+#' chatty(f)(5)
+#'
+#' s <- c(3,2,1)
+#' vapply(s, chatty(f), numeric(1))
+#'
+#' @export
+chatty <- function(f) {
+  function(x, ...) {
+    res <- f(x, ...)
+    cat("Processing ", x, "\n", sep = "")
+    res
+  }
+}
+
+#' FO: dot_every
+#'
+#' This FO can print a dot when every n times operation.
+#'
+#' @param n The n times operation.
+#' @param f The base fucntion.
+#'
+#' @examples
+#' x <- lapply(1:100, dot_every(10, runif))
+#' @export
+dot_every <- function(n, f) {
+  i <- 1
+  function(...) {
+    if (i %% n == 0) cat(".")
+    i <<- i+1
+    f(...)
+  }
+}

@@ -13,3 +13,17 @@ where <- function(f, x) {
   vapply(x, f, logical(1))
 }
 
+#' Functional: compact
+#'
+#' This functional can reserve elements not null in list.
+#'
+#' @param l The object list.
+#'
+#' @examples
+#' x <- list(a = 1:10,b=NULL,c=letters[1:10])
+#' compact(x)
+#'
+#' @export
+compact <- function(l) {
+  Filter(Negate(is.null),l)
+}

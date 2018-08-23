@@ -53,3 +53,22 @@ dot_every <- function(n, f) {
     f(...)
   }
 }
+
+#' FO: failwith
+#'
+#' This FO can return a default value when Error occurs.
+#'
+#' @examples
+#' failwith(NA,log)("a")
+#'
+#' failwith(NA,log,quiet = T)("a")
+#'
+#' @export
+failwith <- function(default = NULL, f, quiet = FALSE) {
+  force(f)
+  function(...) {
+    out <- default
+    try(out <- f(...), silent = quiet)
+    out
+  }
+}

@@ -79,11 +79,47 @@ failwith <- function(default = NULL, f, quiet = FALSE) {
 #'
 #' @examples
 #' fcosttime(delay_by(10,sum))(1:100)
-#'
+#' @export
 fcosttime <- function(f) {
   function(...) {
     costtime <- system.time(out <- f(...))
     cat("Function operates for",costtime[3],"seconds.","\n","\n")
     out
+  }
+}
+
+#' FO: and
+#'
+#' This FO can realize logical and.
+#'
+#' @export
+and <- function(f1, f2) {
+  force(f1); force(f2)
+  function(...) {
+    f1(...) && f2(...)
+  }
+}
+
+#' FO: and
+#'
+#' This FO can realize logical or.
+#'
+#' @export
+or <- function(f1, f2) {
+  force(f1); force(f2)
+  function(...) {
+    f1(...) || f2(...)
+  }
+}
+
+#' FO: and
+#'
+#' This FO can realize logical not.
+#'
+#' @export
+not <- function(f) {
+  force(f)
+  function(...) {
+    !f(...)
   }
 }

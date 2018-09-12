@@ -13,5 +13,5 @@ srt2subtitle <- function(infilepath,outfilepath){
   spaceline <- which(srt == "")
   words <- srt[-c(1,2,spaceline,spaceline+1,spaceline+2)]
   article <- paste(words,collapse = " ")
-  write.table(article,file=paste(c(outfilepath)))
+  write.table(article,file=outfilepath)
 }
